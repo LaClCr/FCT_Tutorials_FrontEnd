@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { AuthorModule } from './author/author.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { CategoryModule } from './category/category.module';
     AppRoutingModule,
     CoreModule,
     CategoryModule,
+    AuthorModule,
     BrowserAnimationsModule,
   ],
   providers: [],
