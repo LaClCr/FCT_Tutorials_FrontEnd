@@ -23,7 +23,7 @@
     </div>   
 
     <div class="game-list">
-        <app-game-item *ngFor="let game of games; let i = index;" (click)="editGame(game)">
+        <app-game-item *ngFor="let game of games; let i = index;" (click)="editGame(game)" [game]="game">
         </app-game-item>
     </div>
 
