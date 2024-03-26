@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { CategoryModule } from './category/category.module';
 import { GameModule } from './game/game.module';
+import { ClientModule } from './client/client.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GameModule } from './game/game.module';
     CategoryModule,
     AuthorModule,
     GameModule,
+    ClientModule,
     BrowserAnimationsModule,
   ],
   providers: [],
