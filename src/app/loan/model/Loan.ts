@@ -5,6 +5,9 @@ export class Loan {
     id: number;
     game: Game;
     client: Client;
-    initDate: Date;
-    endDate: Date;
+    ffinitDate: Date;
+    ffendDate: Date;
+    initDate: string;
+    endDate: string;
+
 }

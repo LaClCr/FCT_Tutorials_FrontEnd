@@ -12,10 +12,11 @@ import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dial
 import { Pageable } from 'src/app/core/model/page/Pageable';
 import { PageEvent } from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-loan-list',
   templateUrl: './loan-list.component.html',
-  styleUrls: ['./loan-list.component.scss']
+  styleUrls: ['./loan-list.component.scss'],
 })
 export class LoanListComponent {
 
@@ -62,7 +63,6 @@ export class LoanListComponent {
     this.filterDate = null;
     this.filterClient = null;
     this.filterGame = null;
-
     this.areFiltersOn = false;
 
     this.loadPageWithoutFilters();
@@ -80,28 +80,23 @@ export class LoanListComponent {
         direction: 'ASC'
       }]
     }
-    let date: Date = this.filterDate;
-    if (date) {
-      date = new Date(date.getTime() + 1 * 60 * 60 * 1000);
+
+    let strDate: string;
+    if (this.filterDate) {
+      const isoString = new Date(this.filterDate.getTime() + 1 * 60 * 60 * 1000).toISOString();
+      strDate = isoString.split('T')[0]; 
     }
-    this.loanService.getLoans(pageable, this.filterGame, this.filterClient, date).subscribe(loans => {
+
+    this.loanService.getLoans(pageable, this.filterGame, this.filterClient, strDate).subscribe(loans => {
       this.dataSource.data = loans.content;
       this.pageNumber = loans.pageable.pageNumber;
       this.pageSize = loans.pageable.pageSize;
       this.totalElements = loans.totalElements;
     });
   }
- 
+
 
   loadFilteredPage(event?: PageEvent) {
-
-    let date = this.filterDate;
-    let client = this.filterClient;
-    let game = this.filterGame;
-
-    if (date) {
-      date = new Date(date.getTime() + 1 * 60 * 60 * 1000);
-    }
 
     let pageable: Pageable = {
       pageNumber: this.pageNumber,
@@ -117,7 +112,13 @@ export class LoanListComponent {
       pageable.pageNumber = event.pageIndex;
     }
 
-    this.loanService.getLoans(pageable, this.filterGame, this.filterClient, date).subscribe(data => {
+    let strDate: string;
+    if (this.filterDate) {
+      const isoString = new Date(this.filterDate.getTime() + 1 * 60 * 60 * 1000).toISOString();
+      strDate = isoString.split('T')[0];
+    }
+
+    this.loanService.getLoans(pageable, this.filterGame, this.filterClient, strDate).subscribe(data => {
       this.dataSource.data = data.content;
       this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
@@ -127,7 +128,7 @@ export class LoanListComponent {
   }
 
   loadPageWithoutFilters(event?: PageEvent) {
-      let pageable: Pageable = {
+    let pageable: Pageable = {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       sort: [{
